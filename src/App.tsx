@@ -256,67 +256,111 @@ const packages = [
   {
     id: 1,
     title: 'Gold Package',
-    subtitle: 'Samburu, Ol Pejeta, Lake Nakuru, Lake Naivasha & Maasai Mara',
-    duration: '9 Days',
+    subtitle: 'Samburu, Ol Pejeta, Lake Naivasha, Maasai Mara & Amboseli',
+    duration: '12 Days / 11 Nights',
     basePrice: 3000,
     image: '/images/image.png',
-    highlights: ['Samburu', 'Ol Pejeta', 'Lake Nakuru', 'Lake Naivasha', 'Maasai Mara'],
-    destinationIds: [7, 6, 4, 5, 2],
+    highlights: ['Samburu', 'Ol Pejeta', 'Lake Naivasha', 'Maasai Mara', 'Amboseli'],
+    destinationIds: [7, 6, 5, 2, 3],
     popular: true,
-    overview: "Experience the very best of Kenya on a 9-day safari through diverse landscapes, unique wildlife habitats, and Africa's most iconic parks and conservancies. Discover Samburu's rare wildlife, Ol Pejeta's endangered rhinos, Lake Nakuru's birdlife, Lake Naivasha's tranquil waters, and the world-famous Maasai Mara.",
+    overview: "Experience the very best of Kenya on this unforgettable 12-day safari through the country's most iconic wildlife destinations. From the unique wildlife of Samburu and the renowned rhino sanctuary at Ol Pejeta to the tranquil shores of Lake Naivasha, the endless plains of the Maasai Mara, and the elephant paradise of Amboseli beneath Mount Kilimanjaro, this journey offers exceptional game viewing, breathtaking landscapes, and carefully selected luxury accommodation throughout.",
     itinerary: [
-      'Day 1 - Nairobi to Samburu National Reserve: Travel north through Kenya\'s scenic central highlands, crossing the Equator before an afternoon game drive. Look for the Samburu Special Five: Grevy\'s zebra, reticulated giraffe, Somali ostrich, Beisa oryx, and gerenuk, alongside elephants, lions, leopards, and cheetahs.',
-      'Day 2 - Samburu National Reserve: Enjoy morning and afternoon game drives around the Ewaso Nyiro River, a lifeline for wildlife. An optional visit to a traditional Samburu village can be arranged.',
-      'Day 3 - Samburu to Ol Pejeta Conservancy: Continue to one of Kenya\'s leading conservation areas at the foothills of Mount Kenya. See black rhinos, the world\'s last two northern white rhinos, the Big Five, and optionally the chimpanzee sanctuary.',
-      'Day 4 - Ol Pejeta to Lake Nakuru National Park: Journey south through the Great Rift Valley for an afternoon game drive. Lake Nakuru is known for white and black rhinos, Rothschild\'s giraffes, seasonal flamingos, lions, leopards, buffaloes, and waterbirds.',
-      'Day 5 - Lake Nakuru to Lake Naivasha: Arrive at the freshwater lake for an afternoon at leisure. Optional experiences include a boat safari, Crescent Island walking safari, birdwatching, or cycling in Hell\'s Gate National Park.',
-      'Day 6 - Lake Naivasha to Maasai Mara National Reserve: Travel through the Great Rift Valley to the Maasai Mara for your first afternoon game drive. The reserve is home to the Big Five and hosts the Great Wildebeest Migration from July to October.',
-      'Day 7 - Maasai Mara: Spend a full day on morning and afternoon game drives, with the option of a picnic lunch, hot air balloon safari, or visit to a traditional Maasai village.',
-      'Day 8 - Maasai Mara: Explore a different area of the Mara ecosystem with your guide, learning about wildlife behaviour, conservation, and the reserve\'s ecology.',
-      'Day 9 - Maasai Mara to Nairobi: Depart after breakfast and return to Nairobi through the Great Rift Valley, with drop-off at your hotel or Jomo Kenyatta International Airport.'
+      'Day 1 - Arrival in Nairobi: Upon arrival at Jomo Kenyatta International Airport, you will be met by your professional safari guide and transferred to your hotel. Spend the remainder of the day relaxing and preparing for your safari adventure. Overnight in Nairobi.',
+      'Day 2 - Nairobi to Samburu National Reserve: After breakfast, depart for Samburu National Reserve, travelling through Kenya\'s central highlands. Arrive in time for lunch before enjoying an afternoon game drive in search of elephants, lions, leopards, and the unique Samburu Special Five. Overnight in Samburu.',
+      'Day 3 - Full Day in Samburu: Enjoy morning and afternoon game drives exploring the reserve\'s diverse landscapes and abundant wildlife while following the banks of the Ewaso Nyiro River. Overnight in Samburu.',
+      'Day 4 - Samburu to Ol Pejeta Conservancy: After breakfast, travel to Ol Pejeta Conservancy. Visit the famous northern white rhino enclosure, black rhino sanctuary, and chimpanzee sanctuary before settling into your lodge for the evening. Overnight at Ol Pejeta.',
+      'Day 5 - Ol Pejeta to Lake Naivasha: Enjoy a morning game drive before continuing south to Lake Naivasha. Arrive in the afternoon and relax at your lakeside lodge. Overnight in Lake Naivasha.',
+      'Day 6 - Explore Lake Naivasha: Spend the day discovering the beauty of Lake Naivasha. Optional activities include a boat safari, Crescent Island walking safari, or a visit to Hell\'s Gate National Park. Overnight in Lake Naivasha.',
+      'Day 7 - Lake Naivasha to Maasai Mara: Depart for the world-famous Maasai Mara National Reserve. Arrive for lunch before heading out on your first afternoon game drive across the spectacular savannah. Overnight in Maasai Mara.',
+      'Day 8 - Full Day in Maasai Mara: Spend the day exploring one of Africa\'s finest wildlife reserves with morning and afternoon game drives in search of the Big Five and other remarkable wildlife. Overnight in Maasai Mara.',
+      'Day 9 - Full Day in Maasai Mara: Enjoy another full day in the reserve with opportunities for exceptional wildlife viewing or an optional sunrise hot air balloon safari followed by a champagne breakfast. Overnight in Maasai Mara.',
+      'Day 10 - Maasai Mara to Nairobi: After breakfast, return to Nairobi for an overnight stay. Spend the evening at leisure before continuing your journey south. Overnight in Nairobi.',
+      'Day 11 - Nairobi to Amboseli National Park: Travel to Amboseli National Park, arriving in time for lunch. Later, enjoy an afternoon game drive with breathtaking views of Mount Kilimanjaro and sightings of Amboseli\'s famous elephant herds. Overnight in Amboseli.',
+      'Day 12 - Amboseli to Nairobi: Enjoy a final early morning game drive before breakfast. Afterwards, depart for Nairobi, where you will be dropped off at your hotel or Jomo Kenyatta International Airport, marking the end of your unforgettable Kenyan safari.'
     ]
   },
   {
     id: 2,
     title: 'Silver Package',
-    subtitle: 'Maasai Mara, Lake Naivasha & Amboseli National Park',
-    duration: '7 Days',
+    subtitle: 'Amboseli, Lake Naivasha, Lake Nakuru & Maasai Mara',
+    duration: '10 Days / 9 Nights',
     basePrice: 1500,
     image: 'https://images.unsplash.com/photo-1549314829-1f5511dbf079?w=800&q=80',
-    highlights: ['Maasai Mara', 'Lake Naivasha', 'Amboseli'],
-    destinationIds: [2, 5, 3],
+    highlights: ['Amboseli', 'Lake Naivasha', 'Lake Nakuru', 'Maasai Mara'],
+    destinationIds: [3, 5, 4, 2],
     popular: false,
-    overview: "Discover Kenya's most iconic wildlife destinations on this 7-day safari. Journey through the Maasai Mara, relax beside Lake Naivasha, and finish in Amboseli National Park, famous for its large elephant herds and breathtaking views of Mount Kilimanjaro.",
+    overview: "Discover Kenya's most celebrated wildlife destinations on this unforgettable 10-day safari, combining breathtaking landscapes, abundant wildlife, and authentic safari experiences. Journey from the iconic elephant herds of Amboseli beneath Mount Kilimanjaro to the serene waters of Lake Naivasha, the flamingo-filled shores of Lake Nakuru, and the legendary Maasai Mara, home to the Big Five and the spectacular Great Wildebeest Migration.",
     itinerary: [
-      'Day 1 - Nairobi to Maasai Mara National Reserve: Drive through the Great Rift Valley, stopping at a scenic viewpoint before arriving for lunch. Set out on an afternoon game drive across the Mara\'s vast savannahs.',
-      'Day 2 - Maasai Mara: Enjoy morning and afternoon game drives in search of the Big Five, cheetahs, hyenas, hippos, crocodiles, wildebeest, gazelles, and abundant birdlife. Optional activities include a sunrise balloon safari or Maasai village visit.',
-      'Day 3 - Maasai Mara: Explore different areas of the ecosystem with your safari guide, who will share insights into wildlife behaviour, conservation, and the Mara\'s unique habitats.',
-      'Day 4 - Maasai Mara to Lake Naivasha: Travel through the Rift Valley to Lake Naivasha. Optional activities include a boat safari, a Crescent Island walking safari, or cycling and hiking in Hell\'s Gate National Park.',
-      'Day 5 - Lake Naivasha to Amboseli National Park: Travel via Nairobi to Amboseli, near the Kenya-Tanzania border. Enjoy an afternoon game drive with views of elephant herds beneath Mount Kilimanjaro.',
-      'Day 6 - Amboseli National Park: Spend the day exploring open plains, swamps, and acacia woodlands. Amboseli offers close elephant encounters, diverse wildlife, and clear-morning views of Kilimanjaro.',
-      'Day 7 - Amboseli to Nairobi: Take a final early game drive or breakfast at the lodge before returning to Nairobi for hotel or airport drop-off.'
+      'Day 1 - Arrival in Nairobi: Upon arrival at Jomo Kenyatta International Airport, you will be warmly welcomed by your professional safari guide and transferred to your hotel. Spend the rest of the day relaxing or exploring the city at your leisure before your safari begins. Overnight in Nairobi.',
+      'Day 2 - Nairobi to Amboseli National Park: After breakfast, depart for Amboseli National Park, renowned for its large elephant herds and breathtaking views of Mount Kilimanjaro. Arrive in time for lunch before enjoying your first afternoon game drive. Overnight in Amboseli.',
+      'Day 3 - Full Day in Amboseli National Park: Spend a full day exploring Amboseli with morning and afternoon game drives. Search for elephants, lions, cheetahs, buffalo, giraffes, zebras, and an incredible variety of birdlife while enjoying spectacular views of Africa\'s highest mountain. Overnight in Amboseli.',
+      'Day 4 - Amboseli to Lake Naivasha: After breakfast, journey through the scenic Great Rift Valley to Lake Naivasha. Arrive in the afternoon and spend the remainder of the day at leisure. Optional activities include a boat safari among hippos or a visit to Crescent Island. Overnight in Lake Naivasha.',
+      'Day 5 - Lake Naivasha to Lake Nakuru National Park: After breakfast, travel to Lake Nakuru National Park, famous for its rhino sanctuary, Rothschild\'s giraffes, and excellent game viewing. Enjoy an afternoon game drive before settling into your lodge. Overnight in Lake Nakuru.',
+      'Day 6 - Full Day in Lake Nakuru National Park: Enjoy a full day exploring the park\'s diverse habitats, where you may encounter white and black rhinos, lions, leopards, buffalo, zebras, and hundreds of bird species. Overnight in Lake Nakuru.',
+      'Day 7 - Lake Nakuru to Maasai Mara National Reserve: Depart after breakfast for the world-famous Maasai Mara National Reserve. Arrive in time for lunch before embarking on an exciting afternoon game drive across the vast savannah. Overnight in Maasai Mara.',
+      'Day 8 - Full Day in Maasai Mara: Spend the day exploring one of Africa\'s greatest wildlife reserves with extensive game drives in search of the Big Five and countless other species. Optional visits to a Maasai village or an evening sundowner can also be arranged. Overnight in Maasai Mara.',
+      'Day 9 - Full Day in Maasai Mara: Enjoy another full day in the reserve with opportunities for exceptional wildlife viewing. Guests travelling during the migration season may witness the world-famous Great Wildebeest Migration. An optional sunrise hot air balloon safari offers an unforgettable perspective of the Mara. Overnight in Maasai Mara.',
+      'Day 10 - Maasai Mara to Nairobi: After breakfast, enjoy a scenic drive back to Nairobi, arriving in the afternoon. You will be dropped off at your hotel or Jomo Kenyatta International Airport, marking the end of your unforgettable Kenyan safari.'
     ]
   },
   {
     id: 3,
     title: 'Bronze Package',
-    subtitle: 'Maasai Mara National Reserve',
-    duration: '4 Days',
+    subtitle: 'Amboseli, Lake Naivasha & Maasai Mara',
+    duration: '8 Days / 7 Nights',
     basePrice: 1000,
     image: 'https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=800&q=80',
-    highlights: ['Great Rift Valley', 'Maasai Mara', 'Big Five Game Drives'],
-    destinationIds: [2],
+    highlights: ['Amboseli', 'Lake Naivasha', 'Maasai Mara', 'Big Five Game Drives'],
+    destinationIds: [3, 5, 2],
     popular: false,
-    overview: "Experience the magic of Kenya's most celebrated wildlife destination on this 4-day Maasai Mara safari. Explore its vast golden plains, rich wildlife, Big Five sightings, and the spectacular Great Wildebeest Migration during season.",
+    overview: "Experience Kenya's most iconic safari destinations on this carefully designed 8-day adventure. Combining the breathtaking views of Mount Kilimanjaro in Amboseli, the tranquil beauty of Lake Naivasha, and the world-famous Maasai Mara, this itinerary offers the perfect introduction to Kenya's spectacular wildlife, diverse landscapes, and unforgettable safari experiences.",
     itinerary: [
-      'Day 1 - Nairobi to Maasai Mara National Reserve: Journey through the Great Rift Valley, stopping at a scenic viewpoint before arriving for lunch. Take your first afternoon game drive in search of lions, elephants, buffaloes, giraffes, zebras, and antelopes.',
-      'Day 2 - Maasai Mara: Spend a full day on morning and afternoon game drives. Search for the Big Five, cheetahs, hyenas, hippos, crocodiles, jackals, wildebeest, gazelles, and abundant birdlife. Optional activities include a sunrise balloon safari or a Maasai village visit.',
-      'Day 3 - Maasai Mara: Discover new areas of the ecosystem with an experienced guide. Track predators, watch grazing herds, and learn about the reserve\'s ecology and wildlife behaviours.',
-      'Day 4 - Maasai Mara to Nairobi: Leave after breakfast for a scenic return through the Great Rift Valley, with time for photographs and refreshments before hotel or airport drop-off in Nairobi.'
+      'Day 1 - Arrival in Nairobi: Upon arrival at Jomo Kenyatta International Airport, you will be welcomed by your professional safari guide and transferred to your hotel. Spend the rest of the day relaxing and preparing for the exciting adventure ahead. Overnight in Nairobi.',
+      'Day 2 - Nairobi to Amboseli National Park: After breakfast, depart for Amboseli National Park, arriving in time for lunch. In the afternoon, enjoy your first game drive as you search for elephants, lions, giraffes, zebras, and other wildlife against the magnificent backdrop of Mount Kilimanjaro. Overnight in Amboseli.',
+      'Day 3 - Full Day in Amboseli National Park: Spend the day exploring Amboseli with morning and afternoon game drives. The park is renowned for its large elephant herds, exceptional birdlife, and some of the finest wildlife photography opportunities in Africa. Overnight in Amboseli.',
+      'Day 4 - Amboseli to Lake Naivasha: After breakfast, journey through the scenic Great Rift Valley to Lake Naivasha. Arrive in the afternoon and enjoy the peaceful surroundings. Optional activities include a boat safari to see hippos and birdlife, a guided walk on Crescent Island, or a visit to Hell\'s Gate National Park. Overnight in Lake Naivasha.',
+      'Day 5 - Lake Naivasha to Maasai Mara National Reserve: After breakfast, continue to the world-renowned Maasai Mara National Reserve. Arrive for lunch before heading out on an afternoon game drive across the reserve\'s vast plains, home to an incredible diversity of wildlife. Overnight in Maasai Mara.',
+      'Day 6 - Full Day in Maasai Mara: Enjoy a full day of game viewing in Kenya\'s most famous wildlife reserve. Search for the Big Five while exploring the Mara\'s rolling grasslands, rivers, and acacia-dotted landscapes. Overnight in Maasai Mara.',
+      'Day 7 - Full Day in Maasai Mara: Spend another full day discovering the wonders of the Maasai Mara. During the migration season, you may witness the spectacular Great Wildebeest Migration. Guests may also choose an optional sunrise hot air balloon safari followed by a champagne breakfast or visit a traditional Maasai village. Overnight in Maasai Mara.',
+      'Day 8 - Maasai Mara to Nairobi: After breakfast, depart the Maasai Mara and enjoy a scenic drive back to Nairobi. Upon arrival, you will be dropped off at your hotel or Jomo Kenyatta International Airport, marking the end of your memorable Kenyan safari.'
     ]
   },
   {
     id: 4,
+    title: 'Classic Maasai Mara Safari',
+    subtitle: "Maasai Mara Safari",
+    duration: '3 Days / 2 Nights',
+    basePrice: 300,
+    image: '/images/Maasai%20mara/maasai-mara-1.jpg',
+    highlights: ['Maasai Mara', 'Big Five Game Drives', 'Great Rift Valley'],
+    destinationIds: [2],
+    popular: false,
+    overview: "Discover the magic of Kenya's most iconic wildlife destination on this unforgettable 3-day safari to the world-famous Maasai Mara National Reserve. Renowned for its incredible wildlife, breathtaking landscapes, and exceptional game viewing, the Maasai Mara offers the perfect opportunity to encounter the Big Five and, during the migration season, witness the spectacular Great Wildebeest Migration.",
+    itinerary: [
+      "Day 1 – Nairobi to Maasai Mara National ReserveDepart Nairobi after an early breakfast and journey through the scenic Great Rift Valley to the Maasai Mara National Reserve. Arrive in time for lunch before embarking on your first afternoon game drive in search of lions, elephants, buffalo, giraffes, zebras, and countless other wildlife species. Overnight in Maasai Mara.",
+      "Day 2 – Full Day in Maasai Mara Spend the day exploring one of Africa's greatest wildlife reserves with extensive morning and afternoon game drives. Search for the Big Five, visit the Mara River during migration season, or choose an optional sunrise hot air balloon safari followed by a champagne breakfast. Overnight in Maasai Mara.",
+      "Day 3 – Maasai Mara to Nairobi After breakfast, enjoy a final morning in the reserve before departing for Nairobi. Arrive in the afternoon and be dropped off at your hotel or Jomo Kenyatta International Airport.",
+    ]
+  },
+  {
+    id: 5,
+    title: 'Classic Amboseli Safari',
+    subtitle: "Amboseli Safari",
+    duration: '3 Days / 2 Nights',
+    basePrice: 300,
+    image: '/images/amboseli/amboseli-1.jpg',
+    highlights: ['Amboseli National Park', 'Elephant Herds', 'Mount Kilimanjaro Views'],
+    destinationIds: [3],
+    popular: false,
+    overview: "Experience the beauty of Amboseli National Park on this classic 3-day safari. Famous for its magnificent elephant herds and spectacular views of Mount Kilimanjaro, Amboseli is one of Kenya's most photographed national parks and offers outstanding wildlife viewing in a stunning natural setting.",
+    itinerary: [
+      "Day 1 – Nairobi to Amboseli National Park Depart Nairobi after breakfast and drive south to Amboseli National Park. Arrive in time for lunch before enjoying an afternoon game drive in search of elephants, lions, cheetahs, giraffes, zebras, and a variety of birdlife, all set against the backdrop of Mount Kilimanjaro. Overnight in Amboseli.",
+      "Day 2 – Full Day in Amboseli National Park Enjoy a full day exploring Amboseli with morning and afternoon game drives. Visit the park's wetlands, open plains, and observation points while experiencing close encounters with Africa's largest elephant herds. Overnight in Amboseli.",
+      "Day 3 – Amboseli to Nairobi After breakfast, enjoy a final morning game drive before departing for Nairobi. Arrive in the afternoon and be dropped off at your hotel or Jomo Kenyatta International Airport."
+    ]
+  },
+  {
+    id: 6,
     title: 'Day Package',
     subtitle: "Nairobi National Park, Sheldrick's Elephant Orphanage & Giraffe Centre",
     duration: '1 Day',
@@ -448,7 +492,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (expandedPackageId !== 4 || !areDayTripImagesReady) return;
+    if (expandedPackageId !== 6 || !areDayTripImagesReady) return;
 
     const interval = window.setInterval(() => {
       setDayTripDialogImageIndex(previous => (previous + 1) % dayTripDialogImages.length);
@@ -474,7 +518,7 @@ function App() {
     setExpandedPackageId(pkg.id);
     setIsItineraryOpen(false);
     setIsInclusionsExclusionsOpen(false);
-    if (pkg.id === 4) setDayTripDialogImageIndex(0);
+    if (pkg.id === 6) setDayTripDialogImageIndex(0);
   };
 
   const closePackageDetails = () => {
@@ -548,10 +592,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.div 
-              className="flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-            >
+            <motion.div>
               <span className={`text-2xl font-bold ${scrolled ? 'text-gray-900' : 'text-white'}`}>
                 K.Dan<span className="text-emerald-500"> Safaris</span>
               </span>
@@ -575,8 +616,6 @@ function App() {
                 </motion.a>
               ))}
             </div>
-
-            {/* CTA Button */}
             <div className="hidden md:block">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -803,20 +842,16 @@ function App() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex items-center justify-between mb-6 flex-grow">
+                    <div className="mb-6 flex-grow">
                       <div>
                         <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-600 font-semibold mb-1">
-                          {pkg.id === 4 ? 'Day Trip' : pkg.title}
+                          {pkg.id === 6 ? 'Day Trip' : pkg.title}
                         </p>
                         <p className="text-sm font-semibold text-gray-700">{pkg.duration}</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-3xl font-bold text-gray-900">${pkg.basePrice.toLocaleString()}</p>
-                        <p className="text-[11px] text-gray-500">Per person</p>
-                      </div>
                     </div>
                     <p className="text-sm text-gray-600 mb-5 leading-relaxed">
-                      {pkg.id === 4
+                      {pkg.id === 6
                         ? pkg.subtitle || pkg.highlights.join(' · ')
                         : `${pkg.duration} including ${pkg.subtitle || pkg.highlights.join(' · ')}`}
                     </p>
