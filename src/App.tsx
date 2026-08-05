@@ -328,7 +328,7 @@ const packages = [
   {
     id: 4,
     title: 'Classic Maasai Mara Safari',
-    subtitle: "Maasai Mara Safari",
+    subtitle: 'Safari in Maasai Mara National Reserve',
     duration: '3 Days / 2 Nights',
     basePrice: 300,
     image: '/images/Maasai%20mara/maasai-mara-1.jpg',
@@ -345,7 +345,7 @@ const packages = [
   {
     id: 5,
     title: 'Classic Amboseli Safari',
-    subtitle: "Amboseli Safari",
+    subtitle: 'Safari in Amboseli National Park',
     duration: '3 Days / 2 Nights',
     basePrice: 300,
     image: '/images/amboseli/amboseli-1.jpg',
@@ -845,7 +845,7 @@ function App() {
                     <div className="mb-6 flex-grow">
                       <div>
                         <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-600 font-semibold mb-1">
-                          {pkg.id === 6 ? 'Day Trip' : pkg.title}
+                          {pkg.id === 6 ? 'Nairobi Day Trip' : pkg.title}
                         </p>
                         <p className="text-sm font-semibold text-gray-700">{pkg.duration}</p>
                       </div>
@@ -853,6 +853,8 @@ function App() {
                     <p className="text-sm text-gray-600 mb-5 leading-relaxed">
                       {pkg.id === 6
                         ? pkg.subtitle || pkg.highlights.join(' · ')
+                        : pkg.id === 4 || pkg.id === 5
+                          ? `${pkg.duration} ${pkg.subtitle}`
                         : `${pkg.duration} including ${pkg.subtitle || pkg.highlights.join(' · ')}`}
                     </p>
                     <motion.button
