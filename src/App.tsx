@@ -900,9 +900,6 @@ function App() {
                           {pkg.id === 6 ? 'Nairobi Day Trip' : pkg.title}
                         </p>
                         <p className="text-sm font-semibold text-gray-700">{pkg.duration}</p>
-                        <p className="mt-3 text-2xl font-bold text-gray-900">
-                          ${pkg.basePrice.toLocaleString()} <span className="text-sm font-normal text-gray-500">per person</span>
-                        </p>
                       </div>
                     </div>
                     <p className="text-sm text-gray-600 mb-5 leading-relaxed">
@@ -1247,7 +1244,6 @@ function App() {
           const endDate = getEndDate(selectedDate, pkg.duration);
           const packageTravellers = travellers[pkg.id] || { adults: 2, children: 0 };
           const totalTravellers = packageTravellers.adults + packageTravellers.children;
-          const totalPrice = pkg.basePrice * totalTravellers;
           const dialogImage = isDayTrip ? dayTripDialogImages[dayTripDialogImageIndex] : pkg.image;
 
           return (
@@ -1296,15 +1292,6 @@ function App() {
                 </div>
 
                 <div className="p-6 sm:p-8 space-y-6">
-                  <div>
-                    <div>
-                      <p className="text-sm text-gray-500">Starting from</p>
-                      <p className="text-3xl font-bold text-gray-900">
-                        ${pkg.basePrice.toLocaleString()} <span className="text-sm font-normal text-gray-500">/ person</span>
-                      </p>
-                    </div>
-                  </div>
-
                   <div>
                     <h4 className="text-lg font-bold text-gray-900 mb-2">Overview</h4>
                     <p className="text-gray-600 leading-relaxed">
@@ -1448,7 +1435,6 @@ function App() {
                           <div key={type} className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3">
                             <div>
                               <p className="font-medium text-gray-900">{type === 'adults' ? 'Adults' : 'Children (12 and below)'}</p>
-                              <p className="text-xs text-gray-500">${pkg.basePrice.toLocaleString()} per person</p>
                             </div>
                             <div className="flex items-center gap-3">
                               <button
@@ -1476,10 +1462,7 @@ function App() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-emerald-50 border border-emerald-100 rounded-lg px-4 py-4 mt-6">
-                      <div>
-                        <p className="text-sm text-emerald-800">{totalTravellers} traveller{totalTravellers === 1 ? '' : 's'}</p>
-                        <p className="text-2xl font-bold text-emerald-900">${totalPrice.toLocaleString()}</p>
-                      </div>
+                      <p className="text-sm text-emerald-800">{totalTravellers} traveller{totalTravellers === 1 ? '' : 's'}</p>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
