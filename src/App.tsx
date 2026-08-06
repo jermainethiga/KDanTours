@@ -1143,11 +1143,11 @@ function App() {
                 </li>
                 <li className="flex items-center space-x-3 text-gray-400">
                   <Phone className="w-5 h-5 text-emerald-500" />
-                  <span>+254 700 000 000</span>
+                  <span>+254725963175</span>
                 </li>
                 <li className="flex items-center space-x-3 text-gray-400">
                   <Mail className="w-5 h-5 text-emerald-500" />
-                  <span>info@dansafaris.co.ke</span>
+                  <span>info@kdansafaris.com</span>
                 </li>
               </ul>
             </div>
