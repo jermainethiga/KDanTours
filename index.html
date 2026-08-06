@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dan.K Safaris - Discover the Magic of Kenya</title>
+    <title>KDanSafaris - Discover the Magic of Kenya</title>
   </head>
   <body>
     <div id="root"></div>
+    <form name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="quote-request" />
+      <input name="subject" />
+      <input name="packageName" />
+      <input name="clientName" />
+      <input name="clientEmail" />
+      <input name="clientPhone" />
+      <input name="travelDates" />
+      <input name="groupSize" />
+      <textarea name="notes"></textarea>
+      <textarea name="message"></textarea>
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

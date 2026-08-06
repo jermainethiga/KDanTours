@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MapPin, 
@@ -439,6 +439,8 @@ function App() {
   const [selectedDates, setSelectedDates] = useState<{ [key: number]: string }>({});
   const [dateConfirmed, setDateConfirmed] = useState<{ [key: number]: boolean }>({});
   const [travellers, setTravellers] = useState<{ [key: number]: { adults: number; children: number } }>({});
+  const [quoteDetails, setQuoteDetails] = useState({ name: '', email: '', phone: '', notes: '' });
+  const [quoteSubmissionState, setQuoteSubmissionState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isItineraryOpen, setIsItineraryOpen] = useState(false);
   const [isInclusionsExclusionsOpen, setIsInclusionsExclusionsOpen] = useState(false);
   const [expandedDestinationId, setExpandedDestinationId] = useState<number | null>(null);
@@ -509,11 +511,6 @@ function App() {
 
   const categories = ['All', 'Safari'];
 
-  const viewPackageDestinations = (pkg: typeof packages[number]) => {
-    setPackageFilter({ packageId: pkg.id, title: pkg.title, destinationIds: pkg.destinationIds });
-    document.getElementById('destinations')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const openPackageDetails = (pkg: typeof packages[number]) => {
     setExpandedPackageId(pkg.id);
     setIsItineraryOpen(false);
@@ -533,6 +530,61 @@ function App() {
   const confirmPackageDate = (packageId: number) => {
     if (selectedDates[packageId]) {
       setDateConfirmed(prev => ({ ...prev, [packageId]: true }));
+      setQuoteSubmissionState('idle');
+    }
+  };
+
+  const submitQuoteRequest = async (
+    event: FormEvent<HTMLFormElement>,
+    pkg: typeof packages[number],
+    startDate: string,
+    endDate: string,
+    packageTravellers: { adults: number; children: number }
+  ) => {
+    event.preventDefault();
+    setQuoteSubmissionState('submitting');
+
+    const formatDate = (date: string) => new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    const travelDates = pkg.id === 6 ? formatDate(startDate) : `${formatDate(startDate)} - ${formatDate(endDate)}`;
+    const groupSize = `${packageTravellers.adults} Adult${packageTravellers.adults === 1 ? '' : 's'}${packageTravellers.children ? `, ${packageTravellers.children} Child${packageTravellers.children === 1 ? '' : 'ren'}` : ''}`;
+    const message = [
+      'Client Details:',
+      `Name: ${quoteDetails.name}`,
+      `Email: ${quoteDetails.email}`,
+      `Phone/WhatsApp: ${quoteDetails.phone}`,
+      '',
+      'Trip Specifications:',
+      `Package Requested: ${pkg.title}`,
+      `Target Travel Dates: ${travelDates}`,
+      `Group Size: ${groupSize}`,
+      `Additional Notes: ${quoteDetails.notes || 'None'}`
+    ].join('\n');
+    const formData = new URLSearchParams({
+      'form-name': 'quote-request',
+      subject: `New Quote Request: ${pkg.title} - ${quoteDetails.name}`,
+      packageName: pkg.title,
+      clientName: quoteDetails.name,
+      clientEmail: quoteDetails.email,
+      clientPhone: quoteDetails.phone,
+      travelDates,
+      groupSize,
+      notes: quoteDetails.notes,
+      message
+    });
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      });
+      setQuoteSubmissionState(response.ok ? 'success' : 'error');
+    } catch {
+      setQuoteSubmissionState('error');
     }
   };
 
@@ -848,6 +900,9 @@ function App() {
                           {pkg.id === 6 ? 'Nairobi Day Trip' : pkg.title}
                         </p>
                         <p className="text-sm font-semibold text-gray-700">{pkg.duration}</p>
+                        <p className="mt-3 text-2xl font-bold text-gray-900">
+                          ${pkg.basePrice.toLocaleString()} <span className="text-sm font-normal text-gray-500">per person</span>
+                        </p>
                       </div>
                     </div>
                     <p className="text-sm text-gray-600 mb-5 leading-relaxed">
@@ -1241,19 +1296,13 @@ function App() {
                 </div>
 
                 <div className="p-6 sm:p-8 space-y-6">
-                  <div className="flex items-center justify-between">
+                  <div>
                     <div>
                       <p className="text-sm text-gray-500">Starting from</p>
                       <p className="text-3xl font-bold text-gray-900">
                         ${pkg.basePrice.toLocaleString()} <span className="text-sm font-normal text-gray-500">/ person</span>
                       </p>
                     </div>
-                    <button
-                      onClick={() => { viewPackageDestinations(pkg); closePackageDetails(); }}
-                      className="text-emerald-600 hover:text-emerald-700 font-medium text-sm underline underline-offset-2"
-                    >
-                      See featured destinations
-                    </button>
                   </div>
 
                   <div>
@@ -1447,18 +1496,37 @@ function App() {
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
-                          className="flex items-center gap-2 text-emerald-700 bg-emerald-50 rounded-lg px-4 py-3 mt-3 overflow-hidden"
+                          className="bg-emerald-50 rounded-lg px-4 py-5 mt-3 overflow-hidden"
                         >
-                          <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                          <span className="text-sm font-medium">
-                            You're set for{' '}
-                            {new Date(selectedDate + 'T00:00:00').toLocaleDateString(undefined, {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}. We'll follow up to confirm availability.
-                          </span>
+                          <form onSubmit={(event) => submitQuoteRequest(event, pkg, selectedDate, endDate, packageTravellers)} className="space-y-4">
+                            <div>
+                              <h4 className="text-lg font-bold text-emerald-950">Request your quote</h4>
+                              <p className="text-sm text-emerald-800 mt-1">We will confirm availability and send your personalized quote.</p>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <label className="text-sm font-medium text-gray-700">
+                                Name
+                                <input required value={quoteDetails.name} onChange={(event) => setQuoteDetails(previous => ({ ...previous, name: event.target.value }))} className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+                              </label>
+                              <label className="text-sm font-medium text-gray-700">
+                                Email
+                                <input required type="email" value={quoteDetails.email} onChange={(event) => setQuoteDetails(previous => ({ ...previous, email: event.target.value }))} className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+                              </label>
+                              <label className="text-sm font-medium text-gray-700 sm:col-span-2">
+                                Phone / WhatsApp
+                                <input required type="tel" value={quoteDetails.phone} onChange={(event) => setQuoteDetails(previous => ({ ...previous, phone: event.target.value }))} className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+                              </label>
+                            </div>
+                            <label className="block text-sm font-medium text-gray-700">
+                              Additional notes
+                              <textarea rows={3} value={quoteDetails.notes} onChange={(event) => setQuoteDetails(previous => ({ ...previous, notes: event.target.value }))} className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 resize-y focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+                            </label>
+                            <button type="submit" disabled={quoteSubmissionState === 'submitting' || quoteSubmissionState === 'success'} className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white px-5 py-3 rounded-lg font-medium transition-colors">
+                              {quoteSubmissionState === 'submitting' ? 'Sending request...' : quoteSubmissionState === 'success' ? 'Quote request sent' : 'Send quote request'}
+                            </button>
+                            {quoteSubmissionState === 'success' && <p className="flex items-center gap-2 text-sm font-medium text-emerald-700"><CheckCircle2 className="w-5 h-5" /> Your request has been sent. We will be in touch shortly.</p>}
+                            {quoteSubmissionState === 'error' && <p className="text-sm font-medium text-red-700">We could not send your request. Please try again or contact us directly.</p>}
+                          </form>
                         </motion.div>
                       )}
                     </AnimatePresence>
