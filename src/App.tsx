@@ -81,6 +81,42 @@ const dayTripDialogImages = [
   '/images/Nairobidaytrip/optimized/IMG_20260317_152745_822.jpg'
 ];
 
+const aboutStars = Array.from({ length: 90 }, () => ({
+  top: Math.random() * 100,
+  left: Math.random() * 100,
+  size: Math.random() * 2 + 1,
+  duration: Math.random() * 3 + 2,
+  delay: Math.random() * 5
+}));
+
+// A spaced-out subset shown as full, uncropped photos (auto width) so lanes never overlap.
+const floatingAboutImages = dayTripDialogImages
+  .filter((_, index) => index % 4 === 0)
+  .map((src, index) => ({
+    src,
+    top: index * 26,
+    heightVh: 18 + index * 2,
+    duration: 26 + index * 5,
+    delay: index * 4
+  }));
+
+const whyTravelWithUs = [
+  'Over 5 years of experience creating unforgettable Kenyan safaris.',
+  'Personalized itineraries tailored to your interests, schedule, and budget.',
+  "Expert local guides with extensive knowledge of Kenya's wildlife, landscapes, and culture.",
+  'Carefully selected lodges and camps chosen for their comfort, quality, and exceptional locations.',
+  'Honest advice, transparent communication, and dedicated support from your first inquiry until your safari concludes.',
+  'A commitment to delivering safe, seamless, and authentic travel experiences.'
+];
+
+const ourValues = [
+  { title: 'Authentic Experiences', description: 'We create journeys that showcase the true spirit of Kenya.' },
+  { title: 'Excellence', description: 'We are committed to delivering exceptional service and attention to detail.' },
+  { title: 'Integrity', description: 'We build trust through honesty, transparency, and reliability.' },
+  { title: 'Personalized Service', description: 'Every safari is designed around the unique needs of our guests.' },
+  { title: 'Responsible Tourism', description: "We believe that protecting Kenya's wildlife and supporting local communities is essential to the future of tourism." }
+];
+
 const packageInclusions = [
   'Airport, hotel or residence pickup and drop-off',
   'Transport in a customized 4x4 Safari Land Cruiser',
@@ -426,6 +462,7 @@ function App() {
   const [expandedDestinationId, setExpandedDestinationId] = useState<number | null>(null);
   const [dayTripDialogImageIndex, setDayTripDialogImageIndex] = useState(0);
   const [areDayTripImagesReady, setAreDayTripImagesReady] = useState(false);
+  const [isAboutPageOpen, setIsAboutPageOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -816,6 +853,18 @@ function App() {
                   <p className="text-gray-600">{feature.description}</p>
                 </motion.div>
               ))}
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="text-center mt-12">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsAboutPageOpen(true)}
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-medium transition-colors shadow-lg hover:shadow-xl"
+              >
+                <span>More About Us</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
@@ -1488,6 +1537,165 @@ function App() {
             </motion.div>
           );
         })()}
+      </AnimatePresence>
+
+      {/* About Page Overlay */}
+      <AnimatePresence>
+        {isAboutPageOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] overflow-y-auto bg-gradient-to-b from-slate-950 via-emerald-950 to-black"
+          >
+            {/* Main background image */}
+            <div className="fixed inset-0">
+              <img
+                src="/images/Heroimage .jpg"
+                alt=""
+                className="w-full h-full object-cover object-[center_58%] opacity-25"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/95" />
+            </div>
+
+            {/* Twinkling stars */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
+              {aboutStars.map((star, idx) => (
+                <motion.span
+                  key={idx}
+                  style={{ top: `${star.top}%`, left: `${star.left}%`, width: star.size, height: star.size }}
+                  className="absolute rounded-full bg-white"
+                  animate={{ opacity: [0.15, 1, 0.15] }}
+                  transition={{ duration: star.duration, delay: star.delay, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              ))}
+            </div>
+
+            {/* Full, uncropped safari photos drifting left to right, each in its own lane so they never overlap */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
+              {floatingAboutImages.map((img, idx) => (
+                <motion.img
+                  key={idx}
+                  src={img.src}
+                  alt=""
+                  style={{ top: `${img.top}%`, left: '-20%', height: `${img.heightVh}vh`, width: 'auto' }}
+                  className="absolute rounded-xl shadow-2xl"
+                  animate={{ x: ['0vw', '130vw'], opacity: [0, 0.65, 0.65, 0] }}
+                  transition={{ duration: img.duration, delay: img.delay, repeat: Infinity, ease: 'linear', times: [0, 0.08, 0.9, 1] }}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => setIsAboutPageOpen(false)}
+              className="fixed top-6 right-6 z-20 w-11 h-11 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+
+            <div className="relative z-10 min-h-dvh flex items-center justify-center px-4 sm:px-6 py-24">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5 }}
+                className="max-w-5xl w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-12"
+              >
+                <div className="text-center mb-10">
+                  <span className="inline-block bg-emerald-500/20 text-emerald-300 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    About Us
+                  </span>
+                  <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+                    Discover Kenya Through Those Who Know It Best
+                  </h2>
+                  <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-4 max-w-3xl mx-auto">
+                    At K Dan Safaris, we believe that Kenya is one of the world's most extraordinary safari destinations. From the endless plains of the Maasai Mara and the elephant-filled landscapes of Amboseli to the flamingo-lined shores of Lake Nakuru and the rugged beauty of Samburu, every corner of our country offers a story waiting to be discovered.
+                  </p>
+                  <p className="text-white/80 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+                    For over <strong className="text-white font-semibold">5 years</strong>, we have been helping travelers experience the very best of Kenya through carefully planned, personalized safaris. Our passion for wildlife, nature, and authentic hospitality inspires everything we do, and we take pride in creating journeys that leave our guests with unforgettable memories.
+                  </p>
+                </div>
+
+                <div className="space-y-10 text-left">
+                  <div className="border-t border-white/10 pt-8">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Our Story</h3>
+                    <p className="text-white/75 leading-relaxed mb-4">
+                      K Dan Safaris was founded with a simple goal: to share the beauty, diversity, and magic of Kenya with travelers from around the world. We understand that no two travelers are alike, which is why every safari we plan is tailored to your interests, travel style, and pace.
+                    </p>
+                    <p className="text-white/75 leading-relaxed">
+                      Whether you dream of witnessing the Great Migration in the Maasai Mara, watching elephants beneath Mount Kilimanjaro in Amboseli, spotting endangered rhinos at Ol Pejeta, or enjoying a peaceful boat ride on Lake Naivasha, we design experiences that allow you to discover Kenya in a meaningful and memorable way.
+                    </p>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-8">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Why Travel with Us?</h3>
+                    <p className="text-white/75 leading-relaxed mb-2">
+                      With more than a decade of experience in Kenya's tourism industry, we combine local knowledge with professional service to ensure every journey is smooth, enjoyable, and rewarding.
+                    </p>
+                    <p className="text-white/75 leading-relaxed mb-4">When you choose K Dan Safaris, you can expect:</p>
+                    <ul className="space-y-3">
+                      {whyTravelWithUs.map((item) => (
+                        <li key={item} className="flex gap-3 text-white/75 text-sm sm:text-base leading-relaxed">
+                          <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5 text-emerald-400" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-8">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Our Mission</h3>
+                    <p className="text-white/75 leading-relaxed">
+                      Our mission is to introduce travelers to the incredible beauty of Kenya through exceptional safari experiences built on professionalism, personalized service, and genuine local expertise. We are committed to responsible tourism that protects Kenya's wildlife, supports conservation efforts, and benefits local communities.
+                    </p>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-8">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Our Values</h3>
+                    <p className="text-white/75 leading-relaxed mb-4">Everything we do is guided by the values that define our company:</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {ourValues.map((value) => (
+                        <div key={value.title} className="bg-white/5 border border-white/10 rounded-2xl p-5">
+                          <h4 className="text-white font-semibold mb-1">{value.title}</h4>
+                          <p className="text-white/60 text-sm leading-relaxed">{value.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-8">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Our Promise</h3>
+                    <p className="text-white/75 leading-relaxed mb-4">
+                      Your safari is more than a vacation, it's an opportunity to experience Kenya's breathtaking landscapes, remarkable wildlife, and warm hospitality in a way that is personal and unforgettable.
+                    </p>
+                    <p className="text-white/75 leading-relaxed">
+                      From the moment you contact us until the day your journey comes to an end, our team is dedicated to making every detail effortless. Whether you're visiting Kenya for the first time or returning to explore more of its natural wonders, we are here to ensure your safari exceeds your expectations.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-center border-t border-white/10 mt-10 pt-10">
+                  <p className="text-emerald-300 italic text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-2">
+                    At K Dan Safaris, we don't just take you on safari, we invite you to experience Kenya through the eyes of people who know and love it best.
+                  </p>
+                  <p className="text-white/70 mb-8">We look forward to welcoming you and helping you create memories that will last a lifetime.</p>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setIsAboutPageOpen(false);
+                      window.setTimeout(() => scrollToSection('packages'), 300);
+                    }}
+                    className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-medium transition-colors shadow-lg hover:shadow-xl"
+                  >
+                    <span>Explore Our Packages</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
