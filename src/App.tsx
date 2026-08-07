@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MapPin, 
@@ -19,6 +19,32 @@ import {
   Users,
   ChevronDown
 } from 'lucide-react';
+
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M13.5 21v-8.2h2.75l.41-3.19h-3.16V7.6c0-.92.26-1.55 1.58-1.55h1.69V3.2A22.6 22.6 0 0 0 14.1 3c-2.4 0-4.04 1.47-4.04 4.16v2.45H7.3v3.19h2.76V21h3.44Z" />
+  </svg>
+);
+
+const InstagramIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className={className} aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4.2" />
+    <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const TwitterIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M18.9 3h3.1l-6.77 7.73L23.2 21h-6.23l-4.88-6.38L6.5 21H3.4l7.24-8.27L3 3h6.38l4.4 5.83L18.9 3Zm-1.09 16.17h1.72L7.29 4.74H5.44l12.37 14.43Z" />
+  </svg>
+);
+
+const WhatsappIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M12.02 2C6.5 2 2 6.48 2 11.98c0 1.83.49 3.6 1.42 5.15L2 22l5.02-1.38a10 10 0 0 0 5 1.35h.01c5.52 0 10-4.48 10-9.98C22.02 6.48 17.55 2 12.02 2Zm0 18.06h-.01a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3 .82.8-2.92-.19-.3a8.03 8.03 0 0 1-1.24-4.34c0-4.45 3.63-8.07 8.09-8.07a8.05 8.05 0 0 1 8.06 8.05c0 4.45-3.63 8.07-8.08 8.07Zm4.43-6.05c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.4-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.65.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+  </svg>
+);
 
 // Animation variants
 const fadeInUp = {
@@ -400,7 +426,7 @@ const packages = [
     subtitle: "Nairobi National Park, Sheldrick's Elephant Orphanage & Giraffe Centre",
     duration: '1 Day',
     basePrice: 300,
-    image: 'https://images.unsplash.com/photo-1759483412971-1a77a7188ac5?w=800&q=80',
+    image: '/images/Nairobidaytrip/IMG_20260316_171617_724.jpg',
     highlights: ['Giraffe Center'],
     destinationIds: [1, 8, 9],
     popular: false,
@@ -454,15 +480,19 @@ function App() {
   const [expandedPackageId, setExpandedPackageId] = useState<number | null>(null);
   const [selectedDates, setSelectedDates] = useState<{ [key: number]: string }>({});
   const [dateConfirmed, setDateConfirmed] = useState<{ [key: number]: boolean }>({});
+  const packageDialogRef = useRef<HTMLDivElement>(null);
+  const quoteRequestRef = useRef<HTMLDivElement>(null);
   const [travellers, setTravellers] = useState<{ [key: number]: { adults: number; children: number } }>({});
   const [quoteDetails, setQuoteDetails] = useState({ name: '', email: '', phone: '', notes: '' });
   const [quoteSubmissionState, setQuoteSubmissionState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isItineraryOpen, setIsItineraryOpen] = useState(false);
   const [isInclusionsExclusionsOpen, setIsInclusionsExclusionsOpen] = useState(false);
   const [expandedDestinationId, setExpandedDestinationId] = useState<number | null>(null);
-  const [dayTripDialogImageIndex, setDayTripDialogImageIndex] = useState(0);
-  const [areDayTripImagesReady, setAreDayTripImagesReady] = useState(false);
   const [isAboutPageOpen, setIsAboutPageOpen] = useState(false);
+  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
+  const [customizeForm, setCustomizeForm] = useState({ name: '', email: '', availableDays: '', adults: '', kids: '', notes: '', locations: [] as string[] });
+  const [customizeSubmissionState, setCustomizeSubmissionState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const customizeTripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -489,36 +519,31 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let isCancelled = false;
-    // Wait for the browser to fully decode each bitmap, not just download the bytes,
-    // so slower devices don't stall mid-crossfade on the first few rotations.
-    const preloadImages = dayTripDialogImages.map((source) => {
-      const image = new Image();
-      image.src = source;
-      return (image.decode ? image.decode() : Promise.resolve()).catch(() => new Promise<void>((resolve) => {
-        image.onload = () => resolve();
-        image.onerror = () => resolve();
-      }));
-    });
+    if (!isCustomizeOpen) return;
 
-    Promise.all(preloadImages).then(() => {
-      if (!isCancelled) setAreDayTripImagesReady(true);
-    });
-
-    return () => {
-      isCancelled = true;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (customizeTripRef.current && !customizeTripRef.current.contains(event.target as Node)) {
+        setIsCustomizeOpen(false);
+      }
     };
-  }, []);
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isCustomizeOpen]);
 
   useEffect(() => {
-    if (expandedPackageId !== 6 || !areDayTripImagesReady) return;
+    if (!expandedPackageId || !dateConfirmed[expandedPackageId]) return;
 
-    const interval = window.setInterval(() => {
-      setDayTripDialogImageIndex(previous => (previous + 1) % dayTripDialogImages.length);
-    }, 3500);
+    const scrollToQuoteRequest = window.setTimeout(() => {
+      const dialog = packageDialogRef.current;
+      const quoteRequest = quoteRequestRef.current;
+      if (!dialog || !quoteRequest) return;
 
-    return () => window.clearInterval(interval);
-  }, [expandedPackageId, areDayTripImagesReady]);
+      dialog.scrollTo({ top: Math.max(quoteRequest.offsetTop - 16, 0), behavior: 'smooth' });
+    }, 300);
+
+    return () => window.clearTimeout(scrollToQuoteRequest);
+  }, [dateConfirmed, expandedPackageId]);
 
   const filteredDestinations = packageFilter
     ? destinations.filter(d => packageFilter.destinationIds.includes(d.id))
@@ -532,7 +557,6 @@ function App() {
     setExpandedPackageId(pkg.id);
     setIsItineraryOpen(false);
     setIsInclusionsExclusionsOpen(false);
-    if (pkg.id === 6) setDayTripDialogImageIndex(0);
   };
 
   const closePackageDetails = () => {
@@ -605,10 +629,65 @@ function App() {
     }
   };
 
+  const toggleCustomizeLocation = (name: string) => {
+    setCustomizeForm(prev => ({
+      ...prev,
+      locations: prev.locations.includes(name)
+        ? prev.locations.filter(location => location !== name)
+        : [...prev.locations, name]
+    }));
+  };
+
+  const closeCustomizeTrip = () => {
+    setIsCustomizeOpen(false);
+  };
+
+  const submitCustomizeTrip = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setCustomizeSubmissionState('submitting');
+
+    const message = [
+      'Trip Inquiry:',
+      `Name: ${customizeForm.name}`,
+      `Email: ${customizeForm.email}`,
+      `Available Days: ${customizeForm.availableDays}`,
+      `Adults: ${customizeForm.adults}`,
+      `Kids: ${customizeForm.kids || '0'}`,
+      `Preferred Locations: ${customizeForm.locations.join(', ') || 'None specified'}`,
+      `Additional Notes: ${customizeForm.notes || 'None'}`
+    ].join('\n');
+    const formData = new URLSearchParams({
+      'form-name': 'customize-trip',
+      subject: `New Trip Inquiry - ${customizeForm.name}`,
+      name: customizeForm.name,
+      email: customizeForm.email,
+      availableDays: customizeForm.availableDays,
+      adults: customizeForm.adults,
+      kids: customizeForm.kids,
+      locations: customizeForm.locations.join(', '),
+      notes: customizeForm.notes,
+      message
+    });
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      });
+      setCustomizeSubmissionState(response.ok ? 'success' : 'error');
+      if (response.ok) {
+        setCustomizeForm({ name: '', email: '', availableDays: '', adults: '', kids: '', notes: '', locations: [] });
+      }
+    } catch {
+      setCustomizeSubmissionState('error');
+    }
+  };
+
   const updateTravellerCount = (packageId: number, type: 'adults' | 'children', change: number) => {
     setTravellers(prev => {
       const current = prev[packageId] || { adults: 2, children: 0 };
-      const minimum = type === 'adults' ? 2 : 0;
+      const minimum = type === 'adults' ? 1 : 0;
       return {
         ...prev,
         [packageId]: {
@@ -685,14 +764,167 @@ function App() {
                 </motion.a>
               ))}
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:block relative" ref={customizeTripRef}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-emerald-600/80 hover:bg-emerald-600 backdrop-blur-md border border-white/20 text-white px-6 py-2.5 rounded-full font-medium transition-colors shadow-lg hover:shadow-xl"
+                onClick={() => setIsCustomizeOpen(prev => !prev)}
+                className="flex items-center gap-2 bg-emerald-600/80 hover:bg-emerald-600 backdrop-blur-md border border-white/20 text-white px-6 py-2.5 rounded-full font-medium transition-colors shadow-lg hover:shadow-xl"
               >
-                Inquire Now
+                Custom Trip
+                <motion.span animate={{ rotate: isCustomizeOpen ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                  <ChevronDown className="w-4 h-4" />
+                </motion.span>
               </motion.button>
+
+              <AnimatePresence>
+                {isCustomizeOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -16, scale: 0.94 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.96 }}
+                    transition={{ type: 'spring', damping: 24, stiffness: 300 }}
+                    className="absolute right-0 top-full mt-3 w-[26rem] max-h-[75vh] overflow-y-auto scrollbar-hidden origin-top-right bg-white text-gray-900 rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                  >
+                      {customizeSubmissionState === 'success' ? (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="flex flex-col items-center text-center py-6"
+                        >
+                          <CheckCircle2 className="w-12 h-12 text-emerald-600 mb-3" />
+                          <h4 className="text-lg font-bold text-gray-900">Request sent!</h4>
+                          <p className="text-sm text-gray-600 mt-1">Our team will reach out to craft your custom itinerary.</p>
+                          <button
+                            type="button"
+                            onClick={closeCustomizeTrip}
+                            className="mt-5 text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                          >
+                            Close
+                          </button>
+                        </motion.div>
+                      ) : (
+                        <form onSubmit={submitCustomizeTrip} className="space-y-4">
+                          <div>
+                            <h4 className="text-lg font-bold text-gray-900">Inquire About Your Trip</h4>
+                            <p className="text-sm text-gray-600 mt-1">Tell us your plans and we'll design a safari around them.</p>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label className="text-sm font-medium text-gray-700">
+                              Name
+                              <input
+                                required
+                                value={customizeForm.name}
+                                onChange={(e) => setCustomizeForm(prev => ({ ...prev, name: e.target.value }))}
+                                className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              Email
+                              <input
+                                required
+                                type="email"
+                                value={customizeForm.email}
+                                onChange={(e) => setCustomizeForm(prev => ({ ...prev, email: e.target.value }))}
+                                className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                              />
+                            </label>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label className="text-sm font-medium text-gray-700">
+                              Available days
+                              <input
+                                required
+                                type="number"
+                                min={1}
+                                step={1}
+                                inputMode="numeric"
+                                placeholder="e.g. 5"
+                                value={customizeForm.availableDays}
+                                onChange={(e) => setCustomizeForm(prev => ({ ...prev, availableDays: e.target.value }))}
+                                className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              Adults
+                              <input
+                                required
+                                type="number"
+                                min={1}
+                                step={1}
+                                inputMode="numeric"
+                                placeholder="e.g. 2"
+                                value={customizeForm.adults}
+                                onChange={(e) => setCustomizeForm(prev => ({ ...prev, adults: e.target.value }))}
+                                className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              Kids
+                              <input
+                                type="number"
+                                min={0}
+                                step={1}
+                                inputMode="numeric"
+                                placeholder="e.g. 0"
+                                value={customizeForm.kids}
+                                onChange={(e) => setCustomizeForm(prev => ({ ...prev, kids: e.target.value }))}
+                                className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                              />
+                            </label>
+                          </div>
+
+                          <div>
+                            <p className="text-sm font-medium text-gray-700 mb-2">Locations you'd like to visit</p>
+                            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto scrollbar-hidden pr-1">
+                              {destinations.map((destination) => (
+                                <label
+                                  key={destination.id}
+                                  className="flex items-center gap-2 text-sm text-gray-700 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer hover:border-emerald-400"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={customizeForm.locations.includes(destination.name)}
+                                    onChange={() => toggleCustomizeLocation(destination.name)}
+                                    className="accent-emerald-600"
+                                  />
+                                  {destination.name}
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          <label className="text-sm font-medium text-gray-700 block">
+                            Additional notes
+                            <textarea
+                              rows={3}
+                              placeholder="Any special requests, occasions, or preferences?"
+                              value={customizeForm.notes}
+                              onChange={(e) => setCustomizeForm(prev => ({ ...prev, notes: e.target.value }))}
+                              className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 resize-none"
+                            />
+                          </label>
+
+                          {customizeSubmissionState === 'error' && (
+                            <p className="text-sm text-rose-600">Something went wrong. Please try again.</p>
+                          )}
+
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            type="submit"
+                            disabled={customizeSubmissionState === 'submitting'}
+                            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                          >
+                            {customizeSubmissionState === 'submitting' ? 'Sending...' : 'Send Inquiry'}
+                          </motion.button>
+                        </form>
+                      )}
+                    </motion.div>
+                  )}
+              </AnimatePresence>
             </div>
 
             {/* Mobile Menu Button */}
@@ -763,7 +995,7 @@ function App() {
           >
             <motion.div variants={fadeInUp} className="mb-6">
               <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium">
-                🇪 Discover the Magic of Kenya
+                Discover the Magic of Kenya
               </span>
             </motion.div>
 
@@ -1163,7 +1395,7 @@ function App() {
       <footer id="contact" className="relative bg-gray-900 text-white py-16 overflow-hidden">
         <div className="absolute -top-24 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Brand */}
             <div>
               <div className="flex items-center space-x-2 mb-6">
@@ -1176,31 +1408,23 @@ function App() {
                 Your trusted partner for unforgettable Kenyan travel experiences. Discover the magic of Africa with us.
               </p>
               <div className="flex space-x-4">
-                {[1, 2, 3, 4].map((_, idx) => (
+                {[
+                  { icon: FacebookIcon, label: 'Facebook' },
+                  { icon: InstagramIcon, label: 'Instagram' },
+                  { icon: TwitterIcon, label: 'Twitter' },
+                  { icon: WhatsappIcon, label: 'WhatsApp' }
+                ].map(({ icon: Icon, label }) => (
                   <motion.a
-                    key={idx}
+                    key={label}
                     href="#"
+                    aria-label={label}
                     whileHover={{ scale: 1.1, y: -2 }}
                     className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-emerald-600 transition-colors"
                   >
-                    <Globe className="w-5 h-5" />
+                    <Icon className="w-5 h-5" />
                   </motion.a>
                 ))}
               </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
-              <ul className="space-y-3">
-                {['About Us', 'Our Packages', 'Destinations', 'Blog', 'Contact'].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-gray-400 hover:text-emerald-500 transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             {/* Contact Info */}
@@ -1262,7 +1486,7 @@ function App() {
           const endDate = getEndDate(selectedDate, pkg.duration);
           const packageTravellers = travellers[pkg.id] || { adults: 2, children: 0 };
           const totalTravellers = packageTravellers.adults + packageTravellers.children;
-          const dialogImage = isDayTrip ? dayTripDialogImages[dayTripDialogImageIndex] : pkg.image;
+          const dialogImage = pkg.image;
 
           return (
             <motion.div
@@ -1278,6 +1502,7 @@ function App() {
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
+                ref={packageDialogRef}
                 className="scrollbar-hidden relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-white rounded-3xl shadow-2xl"
               >
                 <div className="relative h-64 sm:h-72 overflow-hidden rounded-t-3xl">
@@ -1427,7 +1652,8 @@ function App() {
                           min={today}
                           value={selectedDate}
                           onChange={(e) => handleDateChange(pkg.id, e.target.value)}
-                          className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                          style={{ colorScheme: 'light' }}
+                          className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                         />
                       </label>
                       {!isDayTrip && (
@@ -1437,6 +1663,7 @@ function App() {
                             type="date"
                             value={endDate}
                             readOnly
+                            style={{ colorScheme: 'light' }}
                             className="w-full mt-1.5 border border-gray-200 bg-gray-50 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
                           />
                         </label>
@@ -1459,7 +1686,7 @@ function App() {
                                 type="button"
                                 aria-label={`Remove ${type === 'adults' ? 'adult' : 'child'}`}
                                 onClick={() => updateTravellerCount(pkg.id, type, -1)}
-                                disabled={packageTravellers[type] === (type === 'adults' ? 2 : 0)}
+                                disabled={packageTravellers[type] === (type === 'adults' ? 1 : 0)}
                                 className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:border-emerald-600 hover:text-emerald-600"
                               >
                                 <Minus className="w-4 h-4" />
@@ -1494,6 +1721,7 @@ function App() {
                     <AnimatePresence>
                       {isConfirmed && selectedDate && (
                         <motion.div
+                          ref={quoteRequestRef}
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
