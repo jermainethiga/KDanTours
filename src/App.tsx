@@ -2,7 +2,6 @@ import { useState, useEffect, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MapPin, 
-  Star, 
   ArrowRight, 
   Menu, 
   X,
@@ -402,31 +401,12 @@ const features = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah Mwangi',
-    location: 'Nairobi',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
-    rating: 5,
-    text: 'The Maasai Mara safari with K.Dan Safaris was absolutely incredible! We witnessed the Great Migration and saw all of the Big Five. Everything was perfectly organized.'
-  },
-  {
-    id: 2,
-    name: 'James Ochieng',
-    location: 'Mombasa',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
-    rating: 5,
-    text: 'Our Amboseli safari exceeded all expectations. The elephant herds against the backdrop of Kilimanjaro were breathtaking. Highly recommend K.Dan Safaris!'
-  },
-  {
-    id: 3,
-    name: 'Grace Kimani',
-    location: 'Kisumu',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
-    rating: 5,
-    text: 'The Samburu safari was magical! We saw rare species we\'d never seen before. The guides were incredibly knowledgeable and the lodges were luxurious.'
-  }
+const reviewScreenshots = [
+  { id: 1, src: '/images/reviews/review%201.jpeg', alt: 'Customer review screenshot 1' },
+  { id: 2, src: '/images/reviews/WhatsApp%20Image%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 2' },
+  { id: 3, src: '/images/reviews/WhatsApp%20Image%203%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 3' },
+  { id: 4, src: '/images/reviews/WhatsApp%20Image%2042026-08-07%20at%2010.09.47.jpeg', alt: 'Customer review screenshot 4' },
+  { id: 5, src: '/images/reviews/WhatsApp%20Image2%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 5' }
 ];
 
 function App() {
@@ -1109,31 +1089,20 @@ function App() {
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {reviewScreenshots.map((review) => (
                 <motion.div
-                  key={testimonial.id}
+                  key={review.id}
                   variants={fadeInUp}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all duration-300"
+                  whileHover={{ y: -6 }}
+                  className="overflow-hidden rounded-xl border border-white/20 bg-white p-2 shadow-xl transition-shadow duration-300 hover:shadow-2xl"
                 >
-                  <div className="flex items-center space-x-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-white/90 mb-6 text-lg leading-relaxed">"{testimonial.text}"</p>
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="text-white font-semibold">{testimonial.name}</p>
-                      <p className="text-white/70 text-sm">{testimonial.location}</p>
-                    </div>
-                  </div>
+                  <img
+                    src={review.src}
+                    alt={review.alt}
+                    loading="lazy"
+                    className="h-auto w-full object-contain"
+                  />
                 </motion.div>
               ))}
             </div>
