@@ -34,12 +34,6 @@ const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const TwitterIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M18.9 3h3.1l-6.77 7.73L23.2 21h-6.23l-4.88-6.38L6.5 21H3.4l7.24-8.27L3 3h6.38l4.4 5.83L18.9 3Zm-1.09 16.17h1.72L7.29 4.74H5.44l12.37 14.43Z" />
-  </svg>
-);
-
 const WhatsappIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
     <path d="M12.02 2C6.5 2 2 6.48 2 11.98c0 1.83.49 3.6 1.42 5.15L2 22l5.02-1.38a10 10 0 0 0 5 1.35h.01c5.52 0 10-4.48 10-9.98C22.02 6.48 17.55 2 12.02 2Zm0 18.06h-.01a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3 .82.8-2.92-.19-.3a8.03 8.03 0 0 1-1.24-4.34c0-4.45 3.63-8.07 8.09-8.07a8.05 8.05 0 0 1 8.06 8.05c0 4.45-3.63 8.07-8.08 8.07Zm4.43-6.05c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.4-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.65.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
@@ -1409,15 +1403,16 @@ function App() {
               </p>
               <div className="flex space-x-4">
                 {[
-                  { icon: FacebookIcon, label: 'Facebook' },
-                  { icon: InstagramIcon, label: 'Instagram' },
-                  { icon: TwitterIcon, label: 'Twitter' },
-                  { icon: WhatsappIcon, label: 'WhatsApp' }
-                ].map(({ icon: Icon, label }) => (
+                  { icon: FacebookIcon, label: 'Facebook', href: 'https://www.facebook.com/share/1DLNVnNnFw/' },
+                  { icon: InstagramIcon, label: 'Instagram', href: 'https://www.instagram.com/kirrokordan/?utm_source=qr&r=nametag' },
+                  { icon: WhatsappIcon, label: 'WhatsApp', href: 'https://wa.me/qr/TK3XDB3VXJOQO1' }
+                ].map(({ icon: Icon, label, href }) => (
                   <motion.a
                     key={label}
-                    href="#"
+                    href={href}
                     aria-label={label}
+                    target="_blank"
+                    rel="noreferrer"
                     whileHover={{ scale: 1.1, y: -2 }}
                     className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-emerald-600 transition-colors"
                   >
