@@ -457,7 +457,7 @@ const features = [
 ];
 
 const customerReviewImage = {
-  src: '/images/reviews/lokesh-chandramurthy-review.svg',
+  src: '/images/reviews/image.png',
   alt: 'Review from Lokesh Chandramurthy for K Dan Safaris'
 };
 
@@ -1362,16 +1362,16 @@ function App() {
               </motion.p>
             </div>
 
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto max-w-3xl px-2 sm:px-0">
               <motion.article
                 variants={fadeInUp}
-                className="overflow-hidden rounded-2xl border border-white/20 bg-white p-2 shadow-2xl sm:p-3"
+                className="flex justify-center overflow-hidden rounded-2xl border border-white/20 bg-white p-2 shadow-2xl sm:p-3"
               >
                 <img
                   src={customerReviewImage.src}
                   alt={customerReviewImage.alt}
                   loading="lazy"
-                  className="h-auto w-full object-contain"
+                  className="mx-auto block h-auto max-h-[480px] w-auto max-w-full object-contain"
                 />
               </motion.article>
             </div>
@@ -1458,7 +1458,7 @@ function App() {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2026 K.Dan Safaris. All rights reserved. Made with ❤️ in Kenya</p>
+            <p>&copy; 2026 K.Dan Safaris. All rights reserved. Made with TSGAI in Kenya</p>
           </div>
         </div>
       </footer>
