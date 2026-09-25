@@ -11,7 +11,6 @@ import {
   Award,
   Phone,
   Mail,
-  Globe,
   Calendar,
   CheckCircle2,
   Minus,
@@ -457,13 +456,10 @@ const features = [
   }
 ];
 
-const reviewScreenshots = [
-  { id: 1, src: '/images/reviews/review%201.jpeg', alt: 'Customer review screenshot 1' },
-  { id: 2, src: '/images/reviews/WhatsApp%20Image%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 2' },
-  { id: 3, src: '/images/reviews/WhatsApp%20Image%203%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 3' },
-  { id: 4, src: '/images/reviews/WhatsApp%20Image%2042026-08-07%20at%2010.09.47.jpeg', alt: 'Customer review screenshot 4' },
-  { id: 5, src: '/images/reviews/WhatsApp%20Image2%202026-08-07%20at%2010.09.46.jpeg', alt: 'Customer review screenshot 5' }
-];
+const customerReviewImage = {
+  src: '/images/reviews/lokesh-chandramurthy-review.svg',
+  alt: 'Review from Lokesh Chandramurthy for K Dan Safaris'
+};
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -734,10 +730,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.div>
-              <span className={`text-2xl font-bold ${scrolled ? 'text-gray-900' : 'text-white'}`}>
-                K.Dan<span className="text-emerald-500"> Safaris</span>
-              </span>
+            <motion.div className="flex items-center">
+              <img
+                src="/images/k-dan-safaris-logo.svg"
+                alt="K Dan Safaris"
+                className="h-16 w-16 rounded-full object-cover shadow-lg"
+              />
             </motion.div>
 
             {/* Desktop Menu */}
@@ -1364,22 +1362,18 @@ function App() {
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-              {reviewScreenshots.map((review) => (
-                <motion.div
-                  key={review.id}
-                  variants={fadeInUp}
-                  whileHover={{ y: -6 }}
-                  className="overflow-hidden rounded-xl border border-white/20 bg-white p-2 shadow-xl transition-shadow duration-300 hover:shadow-2xl"
-                >
-                  <img
-                    src={review.src}
-                    alt={review.alt}
-                    loading="lazy"
-                    className="h-auto w-full object-contain"
-                  />
-                </motion.div>
-              ))}
+            <div className="mx-auto max-w-3xl">
+              <motion.article
+                variants={fadeInUp}
+                className="overflow-hidden rounded-2xl border border-white/20 bg-white p-2 shadow-2xl sm:p-3"
+              >
+                <img
+                  src={customerReviewImage.src}
+                  alt={customerReviewImage.alt}
+                  loading="lazy"
+                  className="h-auto w-full object-contain"
+                />
+              </motion.article>
             </div>
           </motion.div>
         </div>
@@ -1392,11 +1386,12 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Brand */}
             <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <Globe className="w-8 h-8 text-emerald-500" />
-                <span className="text-2xl font-bold">
-                  K.Dan<span className="text-emerald-500"> Safaris</span>
-                </span>
+              <div className="mb-6">
+                <img
+                  src="/images/k-dan-safaris-logo.svg"
+                  alt="K Dan Safaris"
+                  className="h-24 w-24 rounded-full object-cover shadow-lg"
+                />
               </div>
               <p className="text-gray-400 mb-6">
                 Your trusted partner for unforgettable Kenyan travel experiences. Discover the magic of Africa with us.

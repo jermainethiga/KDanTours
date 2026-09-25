@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">K Dan Safaris logo</title>
+  <desc id="desc">K Dan Safaris logo with an acacia tree, elephant and Kenya safari colors</desc>
+  <rect width="640" height="640" fill="#fbf4eb"/>
+  <circle cx="320" cy="320" r="282" fill="none" stroke="#21180f" stroke-width="3"/>
+  <circle cx="320" cy="320" r="238" fill="none" stroke="#d8a32e" stroke-width="7"/>
+  <path d="M84 326c42-123 138-182 238-181 80 1 157 34 206 112-62-44-128-64-201-61-100 4-171 43-243 130Z" fill="#21180f"/>
+  <path d="M318 171c-7 60-16 104-41 143-21 32-58 54-104 61h264c-64-15-88-44-101-84-13-39-12-78-18-120Z" fill="#21180f"/>
+  <path d="M139 382c83-7 174-8 273-2 48 3 90 6 130 2" fill="none" stroke="#21180f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M392 297c24-25 64-22 79 7 8 15 7 40 1 64l18 29-12 5-16-20c-15 17-37 25-58 18l-20-19-19 2-5-12 18-7c-3-21 0-49 14-67Zm25 76c13 10 31 11 47 2l-4-50c-12-17-32-19-45-4-10 12-10 37 2 52Z" fill="#21180f"/>
+  <path d="M484 319c20-7 32 3 37 18-7-7-15-9-24-7l-8 19-9-7 4-23Z" fill="#21180f"/>
+  <path d="M160 402h320" stroke="#d8a32e" stroke-width="3"/>
+  <text x="320" y="468" text-anchor="middle" font-family="Georgia, serif" font-size="92" letter-spacing="5" fill="#21180f">K DAN</text>
+  <path d="M218 486h204" stroke="#d8a32e" stroke-width="5"/>
+  <text x="320" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="30" letter-spacing="14" fill="#7e2d20">SAFARIS</text>
+  <text x="320" y="555" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="5" fill="#21180f">DISCOVER THE HEART OF KENYA</text>
+</svg>
