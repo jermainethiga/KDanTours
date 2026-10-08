@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import PhoneInput from 'react-phone-number-input';
 import { 
   MapPin, 
   ArrowRight, 
@@ -732,7 +733,7 @@ function App() {
             {/* Logo */}
             <motion.div className="flex items-center">
               <img
-                src="/images/k-dan-safaris-logo.svg"
+                src="/images/k-dan-logo.png"
                 alt="K Dan Safaris"
                 className="h-16 w-16 rounded-full object-cover shadow-lg"
               />
@@ -1388,7 +1389,7 @@ function App() {
             <div>
               <div className="mb-6">
                 <img
-                  src="/images/k-dan-safaris-logo.svg"
+                  src="/images/k-dan-logo.png"
                   alt="K Dan Safaris"
                   className="h-24 w-24 rounded-full object-cover shadow-lg"
                 />
@@ -1733,7 +1734,13 @@ function App() {
                               </label>
                               <label className="text-sm font-medium text-gray-700 sm:col-span-2">
                                 Phone / WhatsApp
-                                <input required type="tel" value={quoteDetails.phone} onChange={(event) => setQuoteDetails(previous => ({ ...previous, phone: event.target.value }))} className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+                                <PhoneInput
+                                  required
+                                  defaultCountry="KE"
+                                  value={quoteDetails.phone || undefined}
+                                  onChange={(phone) => setQuoteDetails(previous => ({ ...previous, phone: phone ?? '' }))}
+                                  className="w-full mt-1.5 border border-gray-300 rounded-lg px-4 py-3 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500"
+                                />
                               </label>
                             </div>
                             <label className="block text-sm font-medium text-gray-700">
